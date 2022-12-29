@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700;800&family=Pacifico&family=Roboto:wght@100;300;400;500;700&display=swap");
 
+/* one more color #F1A661 */
+
 html,
 body,
 * {
@@ -15,64 +17,95 @@ body {
 }
 
 .container {
-  background-color: rgb(60, 60, 60);
+  background-color: #fdeedc;
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: stretch;
   font-family: "Roboto", sans-serif;
 }
 
-header,
-main,
-footer {
+nav,
+main {
   flex-shrink: 0;
 }
 
-/* header section */
-header {
+/* left side navigation section */
+nav {
+  font-family: "Caveat", cursive;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 1rem;
-  width: 100%;
-  background-color: rgb(60, 60, 60);
-  color: white;
+  min-width: fit-content;
+  background-color: #fdeedc;
+  color: #e28b29;
 }
 
-header img {
-  width: clamp(40px, 6vw, 70px);
+nav .icon {
+  width: 100%;
+  display: flex;
+  border-bottom: 3px solid #e28b29;
+  margin-bottom: 3vh;
+  padding-right: 2vw;
+}
+
+nav .icon img {
+  width: clamp(40px, 6vw, 60px);
   margin-right: 1vw;
 }
 
-header h1 {
+nav .icon h1 {
   margin: 0;
-  font-size: clamp(0.9rem, 7vw, 2.5rem);
+  font-size: clamp(0.8rem, 6.5vw, 2.6rem);
   font-family: "Pacifico", cursive;
+}
+
+nav ul li {
+  list-style: none;
+  font-size: 2rem;
+}
+
+nav .tasks-nav {
+  border-bottom: 3px solid #e28b29;
+}
+
+ul {
+  display: inline-block;
+  text-align: left;
+  padding: 0;
+  margin-left: 2vw;
+}
+
+.tasks-nav,
+.projects-nav {
+  min-width: fit-content;
+  white-space: nowrap;
 }
 
 /* main section */
 main {
+  background-color: #ffd8a9;
   display: flex;
   flex-grow: 1;
 }
 
-/* left side navigation section */
+/* left side navigation section
 .nav-container {
-  background-color: rgb(60, 60, 60);
+  background-color: #fdeedc;
+  color: #e28b29;
   width: 15%;
-  /* flex: 1; */
-  font-family: "Caveat", cursive;
-}
-
-.content-container {
   flex: 1;
-  background-color: grey;
+  font-family: "Caveat", cursive;
+} */
+
+/* .content-container {
+  flex: 1;
+  background-color: #ffd8a9;
   margin-right: 2%;
   border-radius: 5px;
-}
+} */
 
 /* footer section */
-footer {
-  background-color: rgb(60, 60, 60);
+/* footer {
+  background-color: #fdeedc;
   height: 30px;
-}
+} */
