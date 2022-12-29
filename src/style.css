@@ -40,6 +40,7 @@ nav {
   color: #e28b29;
 }
 
+/* page icon and title */
 nav .icon {
   width: 100%;
   display: flex;
@@ -59,9 +60,15 @@ nav .icon h1 {
   font-family: "Pacifico", cursive;
 }
 
+/* navigation links */
 nav ul li {
   list-style: none;
   font-size: 2rem;
+}
+
+nav ul li:hover {
+  cursor: pointer;
+  color: rgba(186, 0, 0, 0.951);
 }
 
 nav .tasks-nav {
@@ -75,10 +82,30 @@ ul {
   margin-left: 2vw;
 }
 
+ul img {
+  height: 3.5vh;
+}
+
 .tasks-nav,
 .projects-nav {
   min-width: fit-content;
   white-space: nowrap;
+}
+
+.add-task {
+  display: flex;
+  justify-content: center;
+  padding: 1.5vh 0;
+}
+
+.add-task img {
+  width: clamp(40px, 6vw, 60px);
+  transition: transform 0.2s;
+}
+
+.add-task img:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 /* main section */
@@ -87,25 +114,3 @@ main {
   display: flex;
   flex-grow: 1;
 }
-
-/* left side navigation section
-.nav-container {
-  background-color: #fdeedc;
-  color: #e28b29;
-  width: 15%;
-  flex: 1;
-  font-family: "Caveat", cursive;
-} */
-
-/* .content-container {
-  flex: 1;
-  background-color: #ffd8a9;
-  margin-right: 2%;
-  border-radius: 5px;
-} */
-
-/* footer section */
-/* footer {
-  background-color: #fdeedc;
-  height: 30px;
-} */
