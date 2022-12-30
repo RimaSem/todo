@@ -115,11 +115,26 @@ main {
   flex-grow: 1;
 }
 
+.content-container {
+  width: 100%;
+  position: relative;
+}
+
 /* form section */
 .form-container {
-  width: 40vw;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 40vw;
+  max-width: 500px;
+  height: fit-content;
   padding: 2rem;
   background-color: #e9e9e9bf;
+  box-shadow: 3px 3px 10px #88888882;
+  /* display: none; */
 }
 
 .form-header {
