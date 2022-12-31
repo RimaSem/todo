@@ -66,3 +66,10 @@ document.querySelectorAll(".task").forEach((item) =>
     }
   })
 );
+
+// Delete task
+document.querySelectorAll(".highlight-del").forEach((item) =>
+  item.addEventListener("click", () => {
+    item.parentElement.parentElement.parentElement.remove();
+  })
+);
