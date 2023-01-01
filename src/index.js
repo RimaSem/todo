@@ -7,6 +7,8 @@ const formTitle = document.querySelector(".form-title");
 const addTaskBtn = document.querySelector(".add-btn");
 const showFormBtn = document.querySelector(".add-task img");
 const closeFormBtn = document.querySelector(".close-form-btn");
+const time = new Date().toISOString().slice(0, 10);
+const currentTime = new Date(time);
 
 let taskArray = [];
 let currentTask = {};
@@ -14,13 +16,15 @@ let currentTask = {};
 // task object class
 class Task {
   static counter = 1;
-  constructor(title, description, list, dueDate, priority) {
+  constructor(title, description, list, dueDate = currentTime, priority) {
     this._id = Task.counter++;
     this.title = title;
     this.description = description;
     this.list = list;
     this.dueDate = dueDate;
     this.priority = priority;
+
+    if (!this.dueDate) this.dueDate = time;
   }
 
   getId() {
@@ -35,13 +39,13 @@ class Task {
 
 // add sample tasks to the page
 taskArray.push(
-  new Task("Walk the dog", "something something", "chores", "today", "low")
+  new Task("Walk the dog", "something something", "chores", "Today", "low")
 );
 taskArray.push(
-  new Task("Walk the dog", "something something", "chores", "today", "low")
+  new Task("Walk the dog", "something something", "chores", "Today", "low")
 );
 taskArray.push(
-  new Task("Walk the dog", "something something", "chores", "today", "low")
+  new Task("Walk the dog", "something something", "chores", "Today", "low")
 );
 
 // create html elements for a task
@@ -54,7 +58,7 @@ function createTask(taskObj) {
       ${taskObj.title}
     </div>
     <div class="task-right">
-    ${taskObj.dueDate}
+    <span>${taskObj.dueDate}</span>
       <img width="18px" src="../src/img/priority-circle-green.svg" />
       <img
         class="highlight-edit"
@@ -72,7 +76,7 @@ function createTask(taskObj) {
     <b>Details:</b> ${taskObj.description} <br /><b
       >Due Date:</b
     >
-    2022-02-26 <br /><b>Priority:</b> ${taskObj.priority} <br /><b>List:</b>
+    ${taskObj.dueDate} <br /><b>Priority:</b> ${taskObj.priority} <br /><b>List:</b>
     ${taskObj.list}
   </p>`;
 
@@ -136,6 +140,7 @@ function createTask(taskObj) {
     form[3].value = taskObj.dueDate;
     form[4].value = taskObj.priority;
     form[5].textContent = "Save";
+
     // this variable is used when saving the edited task
     currentTask = taskObj;
     // change form title and button
@@ -150,8 +155,19 @@ function createTask(taskObj) {
 function displayTasks() {
   content.innerHTML = "";
   for (let item of taskArray) {
+    // Mark overdue tasks
+    let objDate = new Date(item.dueDate);
+    if (objDate.getTime() < currentTime.getTime()) {
+      item.dueDate = "Overdue";
+    }
     createTask(item);
   }
+  // Mark tasks of today
+  document.querySelectorAll(".task-right span").forEach((t) => {
+    if (t.textContent.trim() === time) {
+      t.textContent = "Today";
+    }
+  });
 }
 
 displayTasks();
