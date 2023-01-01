@@ -14,10 +14,12 @@ const currentTime = new Date(time);
 const allTasksBtn = document.querySelector(".tasks-nav ul li:nth-of-type(1)");
 const todayBtn = document.querySelector(".tasks-nav ul li:nth-of-type(2)");
 const overdueBtn = document.querySelector(".tasks-nav ul li:nth-of-type(3)");
+let allTasksOn = true;
 let todayOn = false;
 let overdueOn = false;
 
 let taskArray = [];
+let currentArray = [];
 let currentTask = {};
 
 // task object class
@@ -67,7 +69,7 @@ taskArray.push(
   new Task("Watch the news", "if there is time", "Other", "2022-09-01", "low")
 );
 
-// Create html elements for a task
+// create html elements for a task
 function createTask(taskObj) {
   const div = document.createElement("div");
   div.classList.add("task");
@@ -99,11 +101,11 @@ function createTask(taskObj) {
     ${taskObj.list}
   </p>`;
 
-  // Task buttons
+  // task buttons
   const deleteTaskBtn = div.querySelector(".highlight-del");
   const editTaskBtn = div.querySelector(".highlight-edit");
 
-  // Highlight edit and delete task buttons on hover
+  // highlight edit and delete task buttons on hover
   deleteTaskBtn.addEventListener(
     "mouseover",
     (e) => (e.target.src = "../src/img/trash-can-hover.svg")
@@ -122,7 +124,7 @@ function createTask(taskObj) {
     (e) => (e.target.src = "../src/img/lead-pencil.svg")
   );
 
-  // Cross off task with checkbox
+  // cross off task with checkbox
   div.querySelector("#taskCheck").addEventListener("change", (e) => {
     div.querySelector("p").style.display = "none";
     if (e.target.checked) {
@@ -134,7 +136,7 @@ function createTask(taskObj) {
     }
   });
 
-  // Expand task to view more details
+  // expand task to view more details
   div.addEventListener("click", (e) => {
     let para = div.querySelector("p");
     if (window.getComputedStyle(para).display === "none") {
@@ -144,7 +146,7 @@ function createTask(taskObj) {
     }
   });
 
-  // Delete task
+  // delete task
   deleteTaskBtn.addEventListener("click", () => {
     taskObj.removeTask();
     content.removeChild(div);
@@ -152,6 +154,9 @@ function createTask(taskObj) {
 
   // edit task
   editTaskBtn.addEventListener("click", () => {
+    let pr =
+      editTaskBtn.parentElement.parentElement.parentElement.querySelector("p");
+    pr.style.display = "block";
     // populate form with task data
     form[0].value = taskObj.title;
     form[1].value = taskObj.description;
@@ -173,12 +178,12 @@ function createTask(taskObj) {
 // display tasks on the page
 function displayTasks() {
   content.innerHTML = "";
-  let currentArray = [];
 
-  // filter tasks
+  // filter tasks by date
   if (todayOn) {
     currentArray = taskArray.filter((obj) => obj.dueDate === time);
   } else if (overdueOn) {
+    currentArray = [];
     for (let obj of taskArray) {
       let overdueDate = new Date(obj.dueDate);
       if (
@@ -188,25 +193,25 @@ function displayTasks() {
         currentArray.push(obj);
       }
     }
-  } else {
+  } else if (allTasksOn) {
     currentArray = [...taskArray];
   }
 
   for (let item of currentArray) {
-    // Mark overdue tasks
+    // mark overdue tasks
     let objDate = new Date(item.dueDate);
     if (objDate.getTime() < currentTime.getTime()) {
       item.dueDate = "overdue";
     }
     createTask(item);
   }
-  // Mark tasks of today
+  // mark tasks of today
   document.querySelectorAll(".task-right span").forEach((t) => {
     if (t.textContent.trim() === time) {
       t.textContent = "today";
     }
   });
-  // Change priority color
+  // change priority color
   document.querySelectorAll(".task p span").forEach((t) => {
     let priorityImage =
       t.parentElement.parentElement.querySelector(".priority-color");
@@ -267,19 +272,34 @@ closeFormBtn.addEventListener("click", () => {
 
 // flag selected page navigation button
 allTasksBtn.addEventListener("click", () => {
+  allTasksOn = true;
   todayOn = false;
   overdueOn = false;
   displayTasks();
 });
 
 todayBtn.addEventListener("click", () => {
+  allTasksOn = false;
   todayOn = true;
   overdueOn = false;
   displayTasks();
 });
 
 overdueBtn.addEventListener("click", () => {
+  allTasksOn = false;
   todayOn = false;
   overdueOn = true;
   displayTasks();
 });
+
+// filter tasks by list
+const listBtns = document.querySelectorAll(".projects-nav ul li");
+listBtns.forEach((btn) =>
+  btn.addEventListener("click", () => {
+    allTasksOn = false;
+    todayOn = false;
+    overdueOn = false;
+    currentArray = taskArray.filter((obj) => obj.list === btn.textContent);
+    displayTasks();
+  })
+);
