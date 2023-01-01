@@ -42,7 +42,7 @@
       </nav>
       <main>
         <div class="content-container">
-          <div class="task">
+          <!-- <div class="task">
             <div class="task-info">
               <div class="task-left">
                 <input type="checkbox" id="taskCheck" unchecked />
@@ -128,42 +128,42 @@
               2022-02-26 <br /><b>Priority:</b> High <br /><b>List:</b>
               Chores
             </p>
+          </div> -->
+        </div>
+        <div class="form-container">
+          <div class="form-header">
+            <div class="form-title">Add a new task</div>
+            <div class="close-form-btn">X</div>
           </div>
-          <div class="form-container">
-            <div class="form-header">
-              <div class="form-title">Add a new task</div>
-              <div class="close-form-btn">X</div>
-            </div>
-            <form action="#" method="post" id="myForm">
-              <label for="title">Title:</label>
-              <input type="text" id="title" name="title" />
-              <label for="description">Description:</label>
-              <textarea
-                id="description"
-                name="description"
-                rows="6"
-                cols="35"
-              ></textarea>
-              <label for="list">List:</label>
-              <select id="list" name="list">
-                <option value="chores">Chores</option>
-                <option value="errands">Errands</option>
-                <option value="fitness">Fitness</option>
-                <option value="work">Work</option>
-                <option value="school">School</option>
-                <option value="other">Other</option>
-              </select>
-              <label for="dueDate">Due date:</label>
-              <input type="date" id="dueDate" name="dueDate" />
-              <label for="priority">Priority:</label>
-              <select id="priority" name="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-              </select>
-              <button type="button" class="add-btn">Add</button>
-            </form>
-          </div>
+          <form action="#" method="post" id="myForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" />
+            <label for="description">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="6"
+              cols="35"
+            ></textarea>
+            <label for="list">List:</label>
+            <select id="list" name="list">
+              <option value="chores">Chores</option>
+              <option value="errands">Errands</option>
+              <option value="fitness">Fitness</option>
+              <option value="work">Work</option>
+              <option value="school">School</option>
+              <option value="other">Other</option>
+            </select>
+            <label for="dueDate">Due date:</label>
+            <input type="date" id="dueDate" name="dueDate" />
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+            <button type="button" class="add-btn">Add</button>
+          </form>
         </div>
       </main>
     </div>
