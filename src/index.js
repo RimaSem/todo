@@ -59,7 +59,7 @@ function createTask(taskObj) {
     </div>
     <div class="task-right">
     <span>${taskObj.dueDate}</span>
-      <img width="18px" src="../src/img/priority-circle-green.svg" />
+      <img class="priority-color" width="18px" src="../src/img/priority-circle-green.svg" />
       <img
         class="highlight-edit"
         width="18px"
@@ -76,7 +76,7 @@ function createTask(taskObj) {
     <b>Details:</b> ${taskObj.description} <br /><b
       >Due Date:</b
     >
-    ${taskObj.dueDate} <br /><b>Priority:</b> ${taskObj.priority} <br /><b>List:</b>
+    ${taskObj.dueDate} <br /><b>Priority:</b> <span>${taskObj.priority}</span> <br /><b>List:</b>
     ${taskObj.list}
   </p>`;
 
@@ -166,6 +166,18 @@ function displayTasks() {
   document.querySelectorAll(".task-right span").forEach((t) => {
     if (t.textContent.trim() === time) {
       t.textContent = "Today";
+    }
+  });
+  // Change priority color
+  document.querySelectorAll(".task p span").forEach((t) => {
+    let priorityImage =
+      t.parentElement.parentElement.querySelector(".priority-color");
+    if (t.textContent === "high") {
+      priorityImage.src = "../src/img/priority-circle-red.svg";
+    } else if (t.textContent === "medium") {
+      priorityImage.src = "../src/img/priority-circle-orange.svg";
+    } else {
+      priorityImage.src = "../src/img/priority-circle-green.svg";
     }
   });
 }
