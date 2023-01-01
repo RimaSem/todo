@@ -10,6 +10,13 @@ const closeFormBtn = document.querySelector(".close-form-btn");
 const time = new Date().toISOString().slice(0, 10);
 const currentTime = new Date(time);
 
+// page navigation
+const allTasksBtn = document.querySelector(".tasks-nav ul li:nth-of-type(1)");
+const todayBtn = document.querySelector(".tasks-nav ul li:nth-of-type(2)");
+const overdueBtn = document.querySelector(".tasks-nav ul li:nth-of-type(3)");
+let todayOn = false;
+let overdueOn = false;
+
 let taskArray = [];
 let currentTask = {};
 
@@ -39,16 +46,28 @@ class Task {
 
 // add sample tasks to the page
 taskArray.push(
-  new Task("Walk the dog", "something something", "chores", "Today", "low")
+  new Task(
+    "Walk the dog",
+    "Make sure to use the blue leash",
+    "Errands",
+    "2023-01-01",
+    "high"
+  )
 );
 taskArray.push(
-  new Task("Walk the dog", "something something", "chores", "Today", "low")
+  new Task(
+    "Water the plants",
+    "In the kitchen and living room",
+    "Chores",
+    "2023-01-04",
+    "medium"
+  )
 );
 taskArray.push(
-  new Task("Walk the dog", "something something", "chores", "Today", "low")
+  new Task("Watch the news", "if there is time", "Other", "2022-09-01", "low")
 );
 
-// create html elements for a task
+// Create html elements for a task
 function createTask(taskObj) {
   const div = document.createElement("div");
   div.classList.add("task");
@@ -80,11 +99,11 @@ function createTask(taskObj) {
     ${taskObj.list}
   </p>`;
 
-  // task buttons
+  // Task buttons
   const deleteTaskBtn = div.querySelector(".highlight-del");
   const editTaskBtn = div.querySelector(".highlight-edit");
 
-  // highlight edit and delete task buttons on hover
+  // Highlight edit and delete task buttons on hover
   deleteTaskBtn.addEventListener(
     "mouseover",
     (e) => (e.target.src = "../src/img/trash-can-hover.svg")
@@ -125,7 +144,7 @@ function createTask(taskObj) {
     }
   });
 
-  // delete task
+  // Delete task
   deleteTaskBtn.addEventListener("click", () => {
     taskObj.removeTask();
     content.removeChild(div);
@@ -151,21 +170,40 @@ function createTask(taskObj) {
   content.appendChild(div);
 }
 
-// display created tasks on the page
+// display tasks on the page
 function displayTasks() {
   content.innerHTML = "";
-  for (let item of taskArray) {
+  let currentArray = [];
+
+  // filter tasks
+  if (todayOn) {
+    currentArray = taskArray.filter((obj) => obj.dueDate === time);
+  } else if (overdueOn) {
+    for (let obj of taskArray) {
+      let overdueDate = new Date(obj.dueDate);
+      if (
+        overdueDate.getTime() < currentTime.getTime() ||
+        obj.dueDate == "overdue"
+      ) {
+        currentArray.push(obj);
+      }
+    }
+  } else {
+    currentArray = [...taskArray];
+  }
+
+  for (let item of currentArray) {
     // Mark overdue tasks
     let objDate = new Date(item.dueDate);
     if (objDate.getTime() < currentTime.getTime()) {
-      item.dueDate = "Overdue";
+      item.dueDate = "overdue";
     }
     createTask(item);
   }
   // Mark tasks of today
   document.querySelectorAll(".task-right span").forEach((t) => {
     if (t.textContent.trim() === time) {
-      t.textContent = "Today";
+      t.textContent = "today";
     }
   });
   // Change priority color
@@ -225,4 +263,23 @@ showFormBtn.addEventListener("click", () => {
 closeFormBtn.addEventListener("click", () => {
   formContainer.style.display = "none";
   form.reset();
+});
+
+// flag selected page navigation button
+allTasksBtn.addEventListener("click", () => {
+  todayOn = false;
+  overdueOn = false;
+  displayTasks();
+});
+
+todayBtn.addEventListener("click", () => {
+  todayOn = true;
+  overdueOn = false;
+  displayTasks();
+});
+
+overdueBtn.addEventListener("click", () => {
+  todayOn = false;
+  overdueOn = true;
+  displayTasks();
 });

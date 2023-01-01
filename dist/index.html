@@ -23,7 +23,7 @@
           <ul>
             <li><img src="../src/img/all-tasks.svg" /> All Tasks</li>
             <li><img src="../src/img/today-clock.svg" /> Today</li>
-            <li><img src="../src/img/week-clock.svg" /> This Week</li>
+            <li><img src="../src/img/alert-circle.svg" /> Overdue</li>
           </ul>
         </div>
         <div class="projects-nav">
@@ -41,95 +41,7 @@
         </div>
       </nav>
       <main>
-        <div class="content-container">
-          <!-- <div class="task">
-            <div class="task-info">
-              <div class="task-left">
-                <input type="checkbox" id="taskCheck" unchecked />
-                Mop the floor
-              </div>
-              <div class="task-right">
-                Feb-18
-                <img width="18px" src="../src/img/priority-circle-green.svg" />
-                <img
-                  class="highlight-edit"
-                  width="18px"
-                  src="../src/img/lead-pencil.svg"
-                />
-                <img
-                  class="highlight-del"
-                  width="18px"
-                  src="../src/img/trash-can.svg"
-                />
-              </div>
-            </div>
-            <p>
-              <b>Details:</b> Apple pie: Pie crust, apples, cinnamon <br /><b
-                >Due Date:</b
-              >
-              2022-02-26 <br /><b>Priority:</b> High <br /><b>List:</b>
-              Chores
-            </p>
-          </div>
-          <div class="task">
-            <div class="task-info">
-              <div class="task-left">
-                <input type="checkbox" id="taskCheck" unchecked />
-                Mop the floor
-              </div>
-              <div class="task-right">
-                Feb-18
-                <img width="18px" src="../src/img/priority-circle-green.svg" />
-                <img
-                  class="highlight-edit"
-                  width="18px"
-                  src="../src/img/lead-pencil.svg"
-                />
-                <img
-                  class="highlight-del"
-                  width="18px"
-                  src="../src/img/trash-can.svg"
-                />
-              </div>
-            </div>
-            <p>
-              <b>Details:</b> Apple pie: Pie crust, apples, cinnamon <br /><b
-                >Due Date:</b
-              >
-              2022-02-26 <br /><b>Priority:</b> High <br /><b>List:</b>
-              Chores
-            </p>
-          </div>
-          <div class="task">
-            <div class="task-info">
-              <div class="task-left">
-                <input type="checkbox" id="taskCheck" unchecked />
-                Mop the floor
-              </div>
-              <div class="task-right">
-                Feb-18
-                <img width="18px" src="../src/img/priority-circle-green.svg" />
-                <img
-                  class="highlight-edit"
-                  width="18px"
-                  src="../src/img/lead-pencil.svg"
-                />
-                <img
-                  class="highlight-del"
-                  width="18px"
-                  src="../src/img/trash-can.svg"
-                />
-              </div>
-            </div>
-            <p>
-              <b>Details:</b> Apple pie: Pie crust, apples, cinnamon <br /><b
-                >Due Date:</b
-              >
-              2022-02-26 <br /><b>Priority:</b> High <br /><b>List:</b>
-              Chores
-            </p>
-          </div> -->
-        </div>
+        <div class="content-container"></div>
         <div class="form-container">
           <div class="form-header">
             <div class="form-title">Add a new task</div>
@@ -137,7 +49,7 @@
           </div>
           <form action="#" method="post" id="myForm">
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" />
+            <input type="text" id="title" name="title" maxlength="60" />
             <label for="description">Description:</label>
             <textarea
               id="description"
@@ -147,12 +59,12 @@
             ></textarea>
             <label for="list">List:</label>
             <select id="list" name="list">
-              <option value="chores">Chores</option>
-              <option value="errands">Errands</option>
-              <option value="fitness">Fitness</option>
-              <option value="work">Work</option>
-              <option value="school">School</option>
-              <option value="other">Other</option>
+              <option value="Chores">Chores</option>
+              <option value="Errands">Errands</option>
+              <option value="Fitness">Fitness</option>
+              <option value="Work">Work</option>
+              <option value="School">School</option>
+              <option value="Other">Other</option>
             </select>
             <label for="dueDate">Due date:</label>
             <input type="date" id="dueDate" name="dueDate" />
