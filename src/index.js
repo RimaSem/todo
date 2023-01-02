@@ -256,11 +256,6 @@ function displayTasks() {
       priorityImage.src = "../src/img/priority-circle-green.svg";
     }
   });
-  document
-    .querySelectorAll(".del")
-    .forEach((elem) =>
-      elem.addEventListener("click", (e) => e.target.parentElement.remove())
-    );
 }
 
 displayTasks();
@@ -366,12 +361,37 @@ closeListBtn.addEventListener(
 addListBtn.addEventListener("click", (e) => {
   if (newListForm.checkValidity()) {
     const input = newListForm.querySelector("input");
-    const div = document.createElement("div");
-    div.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span></li>`;
-    document.querySelector(".projects-nav ul").append(div);
+    const div1 = document.createElement("div");
+    div1.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span></li>`;
+    document.querySelector(".projects-nav ul").append(div1);
+
+    const option = document.createElement("option");
+    option.value = `${input.value}`;
+    option.textContent = `${input.value}`;
+    // div2.innerHTML = `<option value=${input.value}>${input.value}</option>`;
+    document.querySelector("#list").append(option);
 
     newListForm.reset();
     newListFormContainer.style.display = "none";
     displayTasks();
   }
 });
+
+// delete list of tasks
+document.querySelectorAll(".del").forEach((elem) =>
+  elem.addEventListener("click", (e) => {
+    taskArray = taskArray.filter(
+      (obj) =>
+        obj.list !== e.target.parentElement.querySelector(".list").textContent
+    );
+    document.querySelectorAll("#list option").forEach((elem) => {
+      if (
+        elem.value === e.target.parentElement.querySelector(".list").textContent
+      ) {
+        elem.remove();
+      }
+    });
+    e.target.parentElement.remove();
+    displayTasks();
+  })
+);

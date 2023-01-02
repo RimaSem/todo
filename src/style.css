@@ -89,7 +89,12 @@ nav ul li {
   font-size: 2rem;
 }
 
-nav ul li:hover {
+.tasks-nav ul li:hover {
+  cursor: pointer;
+  color: rgba(186, 0, 0, 0.951);
+}
+
+.projects-nav ul li .list:hover {
   cursor: pointer;
   color: rgba(186, 0, 0, 0.951);
 }
@@ -100,6 +105,7 @@ nav ul li:hover {
 }
 
 .projects-nav ul .del:hover {
+  cursor: pointer;
   color: red;
 }
 
