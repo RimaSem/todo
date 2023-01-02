@@ -94,6 +94,15 @@ nav ul li:hover {
   color: rgba(186, 0, 0, 0.951);
 }
 
+.projects-nav ul .del {
+  font-size: 1.5rem;
+  color: #e28b29;
+}
+
+.projects-nav ul .del:hover {
+  color: red;
+}
+
 nav .tasks-nav {
   border-bottom: 3px solid #e28b29;
 }
@@ -113,6 +122,18 @@ ul img {
 .projects-nav {
   min-width: fit-content;
   white-space: nowrap;
+}
+
+.new-list-btn {
+  font-family: "Roboto", serif;
+  font-size: 0.9rem;
+  color: rgb(137, 75, 0);
+  width: fit-content;
+  margin-left: 40%;
+}
+.new-list-btn:hover {
+  cursor: pointer;
+  color: black;
 }
 
 /* main section */
@@ -172,7 +193,7 @@ main {
   accent-color: #757575;
 }
 
-/* form section */
+/* new task form */
 .form-container {
   position: absolute;
   left: 0;
@@ -245,4 +266,32 @@ form button:hover {
 
 form button:active {
   background-color: rgba(147, 98, 8, 0.885);
+}
+
+/* new list form */
+.new-list-form {
+  position: absolute;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 40vw;
+  max-width: 500px;
+  height: fit-content;
+  padding: 2rem;
+  background-color: #fff3e2;
+  box-shadow: 3px 3px 10px #88888882;
+  display: none;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.btn-container button {
+  flex: 1;
 }

@@ -2,11 +2,22 @@
 
 const content = document.querySelector(".content-container");
 const formContainer = document.querySelector(".form-container");
-const form = document.querySelector("form");
+const form = document.querySelector("#myForm");
 const formTitle = document.querySelector(".form-title");
 const addTaskBtn = document.querySelector(".add-btn");
 const showFormBtn = document.querySelector(".add-task");
 const closeFormBtn = document.querySelector(".close-form-btn");
+
+const newListBtn = document.querySelector(".new-list-btn");
+const newListFormContainer = document.querySelector(".new-list-form");
+const newListForm = document.querySelector(".new-list-form form");
+const addListBtn = document.querySelector(
+  ".btn-container button:nth-of-type(1)"
+);
+
+const closeListBtn = document.querySelector(
+  ".btn-container button:nth-of-type(2)"
+);
 const time = new Date().toISOString().slice(0, 10);
 const currentTime = new Date(time);
 
@@ -76,7 +87,7 @@ taskArray.push(
   )
 );
 taskArray.push(
-  new Task("Watch the news", "if there is time", "Other", "2022-09-01", "low")
+  new Task("Watch the news", "if there is time", "Errands", "2022-09-01", "low")
 );
 
 // create html elements for a task
@@ -245,6 +256,11 @@ function displayTasks() {
       priorityImage.src = "../src/img/priority-circle-green.svg";
     }
   });
+  document
+    .querySelectorAll(".del")
+    .forEach((elem) =>
+      elem.addEventListener("click", (e) => e.target.parentElement.remove())
+    );
 }
 
 displayTasks();
@@ -325,7 +341,7 @@ overdueBtn.addEventListener("click", () => {
 });
 
 // filter tasks by list
-const listBtns = document.querySelectorAll(".projects-nav ul li");
+const listBtns = document.querySelectorAll(".projects-nav ul li .list");
 listBtns.forEach((btn) =>
   btn.addEventListener("click", () => {
     allTasksOn = false;
@@ -335,3 +351,27 @@ listBtns.forEach((btn) =>
     displayTasks();
   })
 );
+
+// event listeners for adding new list
+newListBtn.addEventListener(
+  "click",
+  () => (newListFormContainer.style.display = "block")
+);
+
+closeListBtn.addEventListener(
+  "click",
+  () => (newListFormContainer.style.display = "none")
+);
+
+addListBtn.addEventListener("click", (e) => {
+  if (newListForm.checkValidity()) {
+    const input = newListForm.querySelector("input");
+    const div = document.createElement("div");
+    div.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span></li>`;
+    document.querySelector(".projects-nav ul").append(div);
+
+    newListForm.reset();
+    newListFormContainer.style.display = "none";
+    displayTasks();
+  }
+});
