@@ -60,6 +60,29 @@ nav .icon h1 {
   font-family: "Pacifico", cursive;
 }
 
+/* add new task button */
+.add-task {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  align-self: center;
+  background-color: #f29238cf;
+  padding: 3px 0;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+
+.add-task img {
+  width: clamp(30px, 5vh, 40px);
+  height: 100%;
+}
+
+.add-task:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 /* navigation links */
 nav ul li {
   list-style: none;
@@ -90,22 +113,6 @@ ul img {
 .projects-nav {
   min-width: fit-content;
   white-space: nowrap;
-}
-
-.add-task {
-  display: flex;
-  justify-content: center;
-  padding: 1.5vh 0;
-}
-
-.add-task img {
-  width: clamp(40px, 6vw, 60px);
-  transition: transform 0.2s;
-}
-
-.add-task img:hover {
-  cursor: pointer;
-  transform: scale(1.2);
 }
 
 /* main section */

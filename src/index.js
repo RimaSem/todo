@@ -5,7 +5,7 @@ const formContainer = document.querySelector(".form-container");
 const form = document.querySelector("form");
 const formTitle = document.querySelector(".form-title");
 const addTaskBtn = document.querySelector(".add-btn");
-const showFormBtn = document.querySelector(".add-task img");
+const showFormBtn = document.querySelector(".add-task");
 const closeFormBtn = document.querySelector(".close-form-btn");
 const time = new Date().toISOString().slice(0, 10);
 const currentTime = new Date(time);
@@ -208,13 +208,6 @@ function displayTasks() {
   if (todayOn) {
     currentArray = taskArray.filter((obj) => obj.dueDate === time);
   } else if (overdueOn) {
-    // currentArray = [];
-    // for (let obj of taskArray) {
-    //   let overdueDate = new Date(obj.dueDate);
-    //   if (overdueDate.getTime() < currentTime.getTime()) {
-    //     currentArray.push(obj);
-    //   }
-    // }
     currentArray = taskArray.filter((obj) => obj.isOverdue);
   } else if (allTasksOn) {
     currentArray = [...taskArray];
