@@ -31,13 +31,29 @@
         </div>
         <div class="projects-nav">
           <ul>
-            <li>Chores</li>
-            <li>Errands</li>
-            <li>Fitness</li>
-            <li>Work</li>
-            <li>School</li>
-            <li>Other</li>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="list">Chores</span></li>
+            <li>
+              <span class="del">X</span>&nbsp;&nbsp;<span class="list"
+                >Errands</span
+              >
+            </li>
+            <li>
+              <span class="del">X</span>&nbsp;&nbsp;<span class="list"
+                >Fitness</span
+              >
+            </li>
+            <li>
+              <span class="del">X</span>&nbsp;&nbsp;<span class="list"
+                >Work</span
+              >
+            </li>
+            <li>
+              <span class="del">X</span>&nbsp;&nbsp;<span class="list"
+                >School</span
+              >
+            </li>
           </ul>
+          <div class="new-list-btn">+ new list</div>
         </div>
         <!-- <div class="add-task">
           <img src="../src/img/plus-box.svg" alt="add task button" />
@@ -45,6 +61,20 @@
       </nav>
       <main>
         <div class="content-container"></div>
+        <div class="new-list-form">
+          <form action="post">
+            <input
+              type="text"
+              id="list-input"
+              name="listInput"
+              placeholder="List title"
+            />
+            <div class="btn-container">
+              <button type="button">Add list</button
+              ><button type="reset">Cancel</button>
+            </div>
+          </form>
+        </div>
         <div class="form-container">
           <div class="form-header">
             <div class="form-title">Add a new task</div>
@@ -67,7 +97,6 @@
               <option value="Fitness">Fitness</option>
               <option value="Work">Work</option>
               <option value="School">School</option>
-              <option value="Other">Other</option>
             </select>
             <label for="dueDate">Due date:</label>
             <input type="date" id="dueDate" name="dueDate" />
