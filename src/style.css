@@ -56,7 +56,7 @@ nav .icon img {
 
 nav .icon h1 {
   margin: 0;
-  font-size: clamp(0.8rem, 6.5vw, 2.6rem);
+  font-size: clamp(30px, 6.5vw, 2.6rem);
   font-family: "Pacifico", cursive;
 }
 

@@ -25,13 +25,23 @@ let currentTask = {};
 // task object class
 class Task {
   static counter = 1;
-  constructor(title, description, list, dueDate = currentTime, priority) {
+  constructor(
+    title,
+    description,
+    list,
+    dueDate = currentTime,
+    priority,
+    checkbox = "unchecked",
+    isOverdue = false
+  ) {
     this._id = Task.counter++;
+    this.checkbox = checkbox;
     this.title = title;
     this.description = description;
     this.list = list;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.isOverdue = isOverdue;
 
     if (!this.dueDate) this.dueDate = time;
   }
@@ -75,7 +85,7 @@ function createTask(taskObj) {
   div.classList.add("task");
   div.innerHTML = `<div class="task-info">
     <div class="task-left">
-      <input type="checkbox" id="taskCheck" unchecked />
+      <input type="checkbox" id="taskCheck" ${taskObj.checkbox}/>
       ${taskObj.title}
     </div>
     <div class="task-right">
@@ -100,6 +110,15 @@ function createTask(taskObj) {
     ${taskObj.dueDate} <br /><b>Priority:</b> <span>${taskObj.priority}</span> <br /><b>List:</b>
     ${taskObj.list}
   </p>`;
+
+  // check if task should be displayed as crossed out or not
+  if (div.querySelector("#taskCheck").checked) {
+    div.querySelector(".task-left").style.textDecoration = "line-through";
+    div.querySelector(".task-left").style.color = "#cccccc";
+  } else {
+    div.querySelector(".task-left").style.textDecoration = "none";
+    div.querySelector(".task-left").style.color = "#6c3a00";
+  }
 
   // task buttons
   const deleteTaskBtn = div.querySelector(".highlight-del");
@@ -127,10 +146,16 @@ function createTask(taskObj) {
   // cross off task with checkbox
   div.querySelector("#taskCheck").addEventListener("change", (e) => {
     div.querySelector("p").style.display = "none";
-    if (e.target.checked) {
+    if (taskObj.checkbox == "unchecked") {
+      taskObj.checkbox = "checked";
+      console.log(e.target.checkbox);
+      e.target.checkbox = taskObj.checkbox;
       e.target.parentElement.style.textDecoration = "line-through";
       e.target.parentElement.style.color = "#cccccc";
     } else {
+      taskObj.checkbox = "unchecked";
+      e.target.checkbox = taskObj.checkbox;
+      console.log(e.target.checkbox);
       e.target.parentElement.style.textDecoration = "none";
       e.target.parentElement.style.color = "#6c3a00";
     }
@@ -183,16 +208,14 @@ function displayTasks() {
   if (todayOn) {
     currentArray = taskArray.filter((obj) => obj.dueDate === time);
   } else if (overdueOn) {
-    currentArray = [];
-    for (let obj of taskArray) {
-      let overdueDate = new Date(obj.dueDate);
-      if (
-        overdueDate.getTime() < currentTime.getTime() ||
-        obj.dueDate == "overdue"
-      ) {
-        currentArray.push(obj);
-      }
-    }
+    // currentArray = [];
+    // for (let obj of taskArray) {
+    //   let overdueDate = new Date(obj.dueDate);
+    //   if (overdueDate.getTime() < currentTime.getTime()) {
+    //     currentArray.push(obj);
+    //   }
+    // }
+    currentArray = taskArray.filter((obj) => obj.isOverdue);
   } else if (allTasksOn) {
     currentArray = [...taskArray];
   }
@@ -201,16 +224,22 @@ function displayTasks() {
     // mark overdue tasks
     let objDate = new Date(item.dueDate);
     if (objDate.getTime() < currentTime.getTime()) {
-      item.dueDate = "overdue";
+      item.isOverdue = true;
     }
+
     createTask(item);
   }
+
   // mark tasks of today
   document.querySelectorAll(".task-right span").forEach((t) => {
+    let taskDate = new Date(t.textContent.trim());
     if (t.textContent.trim() === time) {
       t.textContent = "today";
+    } else if (taskDate.getTime() < currentTime.getTime()) {
+      t.textContent = "overdue";
     }
   });
+
   // change priority color
   document.querySelectorAll(".task p span").forEach((t) => {
     let priorityImage =
@@ -236,6 +265,7 @@ addTaskBtn.addEventListener("click", (e) => {
       form[3].value,
       form[4].value
     );
+
     taskArray.push(newTask);
     form.reset();
     formContainer.style.display = "none";
@@ -249,6 +279,15 @@ addTaskBtn.addEventListener("click", (e) => {
     taskArray[index].list = form[2].value;
     taskArray[index].dueDate = form[3].value;
     taskArray[index].priority = form[4].value;
+
+    let objDate = new Date(taskArray[index].dueDate);
+
+    if (objDate.getTime() < currentTime.getTime()) {
+      taskArray[index].isOverdue = true;
+    } else {
+      taskArray[index].isOverdue = false;
+    }
+
     // re-build page
     form.reset();
     formContainer.style.display = "none";
