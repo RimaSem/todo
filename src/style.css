@@ -65,7 +65,8 @@ nav .icon h1 {
   padding: 0;
   display: flex;
   justify-content: center;
-  width: 80%;
+  align-items: center;
+  width: 100%;
   align-self: center;
   background-color: #f29238cf;
   padding: 3px 0;
@@ -80,7 +81,7 @@ nav .icon h1 {
 
 .add-task:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 /* navigation links */
@@ -300,4 +301,67 @@ form button:active {
 
 .btn-container button {
   flex: 1;
+}
+
+/* for mobile devices */
+#forMobile {
+  position: fixed;
+  top: 0;
+  height: 40px;
+  background: rgb(204, 129, 0);
+  width: 100%;
+  color: whitesmoke;
+  font-family: "Pacifico", cursive;
+  align-items: center;
+  font-size: 1.2rem;
+  display: none;
+  justify-content: space-between;
+  flex: 1;
+}
+
+#forMobile p {
+  margin-right: 4%;
+  font-size: 26px;
+}
+
+#forMobile img {
+  margin-left: 4%;
+  width: 2rem;
+}
+
+@media only screen and (max-width: 650px) {
+  #forMobile {
+    display: flex;
+  }
+
+  .task-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  nav {
+    display: none;
+    margin: 40px auto 0 auto;
+    width: 100%;
+  }
+
+  nav .icon {
+    display: none;
+  }
+
+  nav ul li {
+    font-size: 3rem;
+  }
+
+  .new-list-btn {
+    font-size: 1.5rem;
+  }
+
+  .projects-nav ul .del {
+    font-size: 2.2rem;
+  }
+
+  ul img {
+    height: 5vh;
+  }
 }

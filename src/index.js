@@ -1,5 +1,7 @@
 // import "./style.css";
 
+const nav = document.querySelector("nav");
+const main = document.querySelector("main");
 const content = document.querySelector(".content-container");
 const formContainer = document.querySelector(".form-container");
 const form = document.querySelector("#myForm");
@@ -256,6 +258,18 @@ function displayTasks() {
       priorityImage.src = "../src/img/priority-circle-green.svg";
     }
   });
+
+  // filter tasks by list
+  const listBtns = document.querySelectorAll(".projects-nav ul li .list");
+  listBtns.forEach((btn) =>
+    btn.addEventListener("click", () => {
+      allTasksOn = false;
+      todayOn = false;
+      overdueOn = false;
+      currentArray = taskArray.filter((obj) => obj.list === btn.textContent);
+      displayTasks();
+    })
+  );
 }
 
 displayTasks();
@@ -335,18 +349,6 @@ overdueBtn.addEventListener("click", () => {
   displayTasks();
 });
 
-// filter tasks by list
-const listBtns = document.querySelectorAll(".projects-nav ul li .list");
-listBtns.forEach((btn) =>
-  btn.addEventListener("click", () => {
-    allTasksOn = false;
-    todayOn = false;
-    overdueOn = false;
-    currentArray = taskArray.filter((obj) => obj.list === btn.textContent);
-    displayTasks();
-  })
-);
-
 // event listeners for adding new list
 newListBtn.addEventListener(
   "click",
@@ -360,6 +362,7 @@ closeListBtn.addEventListener(
 
 addListBtn.addEventListener("click", (e) => {
   if (newListForm.checkValidity()) {
+    e.preventDefault();
     const input = newListForm.querySelector("input");
     const div1 = document.createElement("div");
     div1.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span></li>`;
@@ -370,6 +373,7 @@ addListBtn.addEventListener("click", (e) => {
     option.textContent = `${input.value}`;
     // div2.innerHTML = `<option value=${input.value}>${input.value}</option>`;
     document.querySelector("#list").append(option);
+    deleteListEvent();
 
     newListForm.reset();
     newListFormContainer.style.display = "none";
@@ -378,20 +382,44 @@ addListBtn.addEventListener("click", (e) => {
 });
 
 // delete list of tasks
-document.querySelectorAll(".del").forEach((elem) =>
-  elem.addEventListener("click", (e) => {
-    taskArray = taskArray.filter(
-      (obj) =>
-        obj.list !== e.target.parentElement.querySelector(".list").textContent
-    );
-    document.querySelectorAll("#list option").forEach((elem) => {
-      if (
-        elem.value === e.target.parentElement.querySelector(".list").textContent
-      ) {
-        elem.remove();
-      }
-    });
-    e.target.parentElement.remove();
-    displayTasks();
-  })
-);
+function deleteListEvent() {
+  document.querySelectorAll(".del").forEach((elem) =>
+    elem.addEventListener("click", (e) => {
+      taskArray = taskArray.filter(
+        (obj) =>
+          obj.list !== e.target.parentElement.querySelector(".list").textContent
+      );
+      document.querySelectorAll("#list option").forEach((elem) => {
+        if (
+          elem.value ===
+          e.target.parentElement.querySelector(".list").textContent
+        ) {
+          elem.remove();
+        }
+      });
+      e.target.parentElement.remove();
+      displayTasks();
+    })
+  );
+}
+
+deleteListEvent();
+
+// mobile device menu
+document.querySelector("#dispSidebar").addEventListener("click", (e) => {
+  if (nav.style.display == "block") {
+    nav.style.display = "none";
+  } else {
+    nav.style.display = "block";
+  }
+});
+
+function onResize() {
+  if (window.innerWidth > 620) {
+    nav.style.display = "block";
+  } else {
+    nav.style.display = "none";
+  }
+}
+
+window.onresize = onResize;
