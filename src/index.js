@@ -1,11 +1,22 @@
-// import "./style.css";
+import "./style.css";
+import Task, {
+  content,
+  formContainer,
+  form,
+  formTitle,
+  time,
+  currentTime,
+  taskArray,
+  currentArray,
+  currentTask,
+  addSamples,
+  createTask,
+} from "./task";
+import priorityGreen from "./img/priority-circle-green.svg";
+import priorityOrange from "./img/priority-circle-orange.svg";
+import priorityRed from "./img/priority-circle-red.svg";
 
 const nav = document.querySelector("nav");
-const main = document.querySelector("main");
-const content = document.querySelector(".content-container");
-const formContainer = document.querySelector(".form-container");
-const form = document.querySelector("#myForm");
-const formTitle = document.querySelector(".form-title");
 const addTaskBtn = document.querySelector(".add-btn");
 const showFormBtn = document.querySelector(".add-task");
 const closeFormBtn = document.querySelector(".close-form-btn");
@@ -20,8 +31,6 @@ const addListBtn = document.querySelector(
 const closeListBtn = document.querySelector(
   ".btn-container button:nth-of-type(2)"
 );
-const time = new Date().toISOString().slice(0, 10);
-const currentTime = new Date(time);
 
 // page navigation
 const allTasksBtn = document.querySelector(".tasks-nav ul li:nth-of-type(1)");
@@ -31,187 +40,8 @@ let allTasksOn = true;
 let todayOn = false;
 let overdueOn = false;
 
-let taskArray = [];
-let currentArray = [];
-let currentTask = {};
-
-// task object class
-class Task {
-  static counter = 1;
-  constructor(
-    title,
-    description,
-    list,
-    dueDate = currentTime,
-    priority,
-    checkbox = "unchecked",
-    isOverdue = false
-  ) {
-    this._id = Task.counter++;
-    this.checkbox = checkbox;
-    this.title = title;
-    this.description = description;
-    this.list = list;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.isOverdue = isOverdue;
-
-    if (!this.dueDate) this.dueDate = time;
-  }
-
-  getId() {
-    return this._id;
-  }
-
-  removeTask() {
-    taskArray = taskArray.filter((i) => i.getId() !== this.getId());
-    return taskArray;
-  }
-}
-
 // add sample tasks to the page
-taskArray.push(
-  new Task(
-    "Walk the dog",
-    "Make sure to use the blue leash",
-    "Errands",
-    "2023-01-01",
-    "high"
-  )
-);
-taskArray.push(
-  new Task(
-    "Water the plants",
-    "In the kitchen and living room",
-    "Chores",
-    "2023-01-04",
-    "medium"
-  )
-);
-taskArray.push(
-  new Task("Watch the news", "if there is time", "Errands", "2022-09-01", "low")
-);
-
-// create html elements for a task
-function createTask(taskObj) {
-  const div = document.createElement("div");
-  div.classList.add("task");
-  div.innerHTML = `<div class="task-info">
-    <div class="task-left">
-      <input type="checkbox" id="taskCheck" ${taskObj.checkbox}/>
-      ${taskObj.title}
-    </div>
-    <div class="task-right">
-    <span>${taskObj.dueDate}</span>
-      <img class="priority-color" width="18px" src="../src/img/priority-circle-green.svg" />
-      <img
-        class="highlight-edit"
-        width="18px"
-        src="../src/img/lead-pencil.svg"
-      />
-      <img
-        class="highlight-del"
-        width="18px"
-        src="../src/img/trash-can.svg"
-      />
-    </div>
-  </div>
-  <p>
-    <b>Details:</b> ${taskObj.description} <br /><b
-      >Due Date:</b
-    >
-    ${taskObj.dueDate} <br /><b>Priority:</b> <span>${taskObj.priority}</span> <br /><b>List:</b>
-    ${taskObj.list}
-  </p>`;
-
-  // check if task should be displayed as crossed out or not
-  if (div.querySelector("#taskCheck").checked) {
-    div.querySelector(".task-left").style.textDecoration = "line-through";
-    div.querySelector(".task-left").style.color = "#cccccc";
-  } else {
-    div.querySelector(".task-left").style.textDecoration = "none";
-    div.querySelector(".task-left").style.color = "#6c3a00";
-  }
-
-  // task buttons
-  const deleteTaskBtn = div.querySelector(".highlight-del");
-  const editTaskBtn = div.querySelector(".highlight-edit");
-
-  // highlight edit and delete task buttons on hover
-  deleteTaskBtn.addEventListener(
-    "mouseover",
-    (e) => (e.target.src = "../src/img/trash-can-hover.svg")
-  );
-  deleteTaskBtn.addEventListener(
-    "mouseout",
-    (e) => (e.target.src = "../src/img/trash-can.svg")
-  );
-
-  editTaskBtn.addEventListener(
-    "mouseover",
-    (e) => (e.target.src = "../src/img/lead-pencil-hover.svg")
-  );
-  editTaskBtn.addEventListener(
-    "mouseout",
-    (e) => (e.target.src = "../src/img/lead-pencil.svg")
-  );
-
-  // cross off task with checkbox
-  div.querySelector("#taskCheck").addEventListener("change", (e) => {
-    div.querySelector("p").style.display = "none";
-    if (taskObj.checkbox == "unchecked") {
-      taskObj.checkbox = "checked";
-      console.log(e.target.checkbox);
-      e.target.checkbox = taskObj.checkbox;
-      e.target.parentElement.style.textDecoration = "line-through";
-      e.target.parentElement.style.color = "#cccccc";
-    } else {
-      taskObj.checkbox = "unchecked";
-      e.target.checkbox = taskObj.checkbox;
-      console.log(e.target.checkbox);
-      e.target.parentElement.style.textDecoration = "none";
-      e.target.parentElement.style.color = "#6c3a00";
-    }
-  });
-
-  // expand task to view more details
-  div.addEventListener("click", (e) => {
-    let para = div.querySelector("p");
-    if (window.getComputedStyle(para).display === "none") {
-      para.style.display = "block";
-    } else {
-      para.style.display = "none";
-    }
-  });
-
-  // delete task
-  deleteTaskBtn.addEventListener("click", () => {
-    taskObj.removeTask();
-    content.removeChild(div);
-  });
-
-  // edit task
-  editTaskBtn.addEventListener("click", () => {
-    let pr =
-      editTaskBtn.parentElement.parentElement.parentElement.querySelector("p");
-    pr.style.display = "block";
-    // populate form with task data
-    form[0].value = taskObj.title;
-    form[1].value = taskObj.description;
-    form[2].value = taskObj.list;
-    form[3].value = taskObj.dueDate;
-    form[4].value = taskObj.priority;
-    form[5].textContent = "Save";
-
-    // this variable is used when saving the edited task
-    currentTask = taskObj;
-    // change form title and button
-    formTitle.textContent = "Edit Task";
-    formContainer.style.display = "block";
-  });
-
-  content.appendChild(div);
-}
+addSamples();
 
 // display tasks on the page
 function displayTasks() {
@@ -251,11 +81,11 @@ function displayTasks() {
     let priorityImage =
       t.parentElement.parentElement.querySelector(".priority-color");
     if (t.textContent === "high") {
-      priorityImage.src = "../src/img/priority-circle-red.svg";
+      priorityImage.src = priorityRed;
     } else if (t.textContent === "medium") {
-      priorityImage.src = "../src/img/priority-circle-orange.svg";
+      priorityImage.src = priorityOrange;
     } else {
-      priorityImage.src = "../src/img/priority-circle-green.svg";
+      priorityImage.src = priorityGreen;
     }
   });
 
@@ -288,6 +118,10 @@ addTaskBtn.addEventListener("click", (e) => {
     form.reset();
     formContainer.style.display = "none";
     // re-build page
+    allTasksOn = false;
+    todayOn = false;
+    overdueOn = false;
+    currentArray = [...taskArray];
     displayTasks();
   } else if (e.target.innerText === "Save" && form.checkValidity()) {
     // find index of the task currently being edited
