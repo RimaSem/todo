@@ -415,7 +415,7 @@ document.querySelector("#dispSidebar").addEventListener("click", (e) => {
 });
 
 function onResize() {
-  if (window.innerWidth > 620) {
+  if (window.innerWidth > 650) {
     nav.style.display = "block";
   } else {
     nav.style.display = "none";
