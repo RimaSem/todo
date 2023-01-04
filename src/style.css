@@ -278,7 +278,6 @@ form button:active {
 /* new list form */
 .new-list-form {
   position: absolute;
-  position: absolute;
   left: 0;
   right: 0;
   top: 0;
@@ -339,10 +338,15 @@ form button:active {
     gap: 20px;
   }
 
+  body {
+    background-color: #fcc37d;
+  }
+
   nav {
     display: none;
     margin: 40px auto 0 auto;
     width: 100%;
+    height: fit-content;
   }
 
   nav .icon {

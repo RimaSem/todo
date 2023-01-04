@@ -122,6 +122,9 @@ addTaskBtn.addEventListener("click", (e) => {
     todayOn = false;
     overdueOn = false;
     currentArray = [...taskArray];
+    if (window.innerWidth < 650) {
+      nav.style.display = "none";
+    }
     displayTasks();
   } else if (e.target.innerText === "Save" && form.checkValidity()) {
     // find index of the task currently being edited
@@ -195,8 +198,8 @@ closeListBtn.addEventListener(
 );
 
 addListBtn.addEventListener("click", (e) => {
-  if (newListForm.checkValidity()) {
-    e.preventDefault();
+  console.log(newListForm[0].value);
+  if (newListForm[0].value) {
     const input = newListForm.querySelector("input");
     const div1 = document.createElement("div");
     div1.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span></li>`;
@@ -205,7 +208,6 @@ addListBtn.addEventListener("click", (e) => {
     const option = document.createElement("option");
     option.value = `${input.value}`;
     option.textContent = `${input.value}`;
-    // div2.innerHTML = `<option value=${input.value}>${input.value}</option>`;
     document.querySelector("#list").append(option);
     deleteListEvent();
 
