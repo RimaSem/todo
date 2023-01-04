@@ -5,10 +5,6 @@ import trash from "./img/trash-can.svg";
 import trashHover from "./img/trash-can-hover.svg";
 import priorityGreen from "./img/priority-circle-green.svg";
 
-export const content = document.querySelector(".content-container");
-export const formContainer = document.querySelector(".form-container");
-export const form = document.querySelector("#myForm");
-export const formTitle = document.querySelector(".form-title");
 export const time = new Date().toISOString().slice(0, 10);
 export const currentTime = new Date(time);
 export let taskArray = [];
@@ -77,6 +73,10 @@ export function addSamples() {
 
 // create html elements for a task
 export function createTask(taskObj) {
+  const content = document.querySelector(".content-container");
+  const formContainer = document.querySelector(".form-container");
+  const form = document.querySelector("#myForm");
+  const formTitle = document.querySelector(".form-title");
   if (!taskObj.dueDate) taskObj.dueDate = time;
   const div = document.createElement("div");
   div.classList.add("task");

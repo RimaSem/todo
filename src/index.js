@@ -1,9 +1,6 @@
 import "./style.css";
+import renderStructure from "./page-structure";
 import Task, {
-  content,
-  formContainer,
-  form,
-  formTitle,
   time,
   currentTime,
   taskArray,
@@ -15,6 +12,13 @@ import Task, {
 import priorityGreen from "./img/priority-circle-green.svg";
 import priorityOrange from "./img/priority-circle-orange.svg";
 import priorityRed from "./img/priority-circle-red.svg";
+
+renderStructure();
+
+const content = document.querySelector(".content-container");
+const formContainer = document.querySelector(".form-container");
+const form = document.querySelector("#myForm");
+const formTitle = document.querySelector(".form-title");
 
 const nav = document.querySelector("nav");
 const addTaskBtn = document.querySelector(".add-btn");
