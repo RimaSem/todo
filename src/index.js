@@ -51,7 +51,6 @@ if (!localStorage.getItem("localListArray")) {
 }
 
 // add sample tasks to the page
-// localStorage.clear();
 addSamples();
 
 // display tasks on the page
@@ -59,10 +58,18 @@ function displayTasks() {
   // display lists
   document.querySelector(".projects-nav ul").innerHTML =
     '<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="list">Chores</span></li>';
+  document.getElementById("list").innerHTML =
+    '<option value="Chores">Chores</option>';
   for (let item of listArray) {
     const div = document.createElement("div");
     div.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${item}</span></li>`;
     document.querySelector(".projects-nav ul").append(div);
+
+    // create list options in form
+    const div2 = document.createElement("option");
+    div2.value = item;
+    div2.textContent = item;
+    document.getElementById("list").append(div2);
   }
 
   deleteListEvent();
@@ -225,9 +232,6 @@ closeListBtn.addEventListener(
 addListBtn.addEventListener("click", (e) => {
   if (newListForm[0].value) {
     const input = newListForm.querySelector("input");
-    // const li = document.createElement("li");
-    // li.innerHTML = `<span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span>`;
-    // document.querySelector(".projects-nav ul").append(li);
     listArray.push(newListForm[0].value);
     localStorage.localListArray = JSON.stringify(listArray);
 
@@ -235,7 +239,6 @@ addListBtn.addEventListener("click", (e) => {
     option.value = `${input.value}`;
     option.textContent = `${input.value}`;
     document.querySelector("#list").append(option);
-    // deleteListEvent();
 
     newListForm.reset();
     newListFormContainer.style.display = "none";
