@@ -39,12 +39,34 @@ const overdueBtn = document.querySelector(".tasks-nav ul li:nth-of-type(3)");
 let allTasksOn = true;
 let todayOn = false;
 let overdueOn = false;
+let listArray = ["Errands", "Fitness", "Work", "School"];
+
+// save or retrieve data to/from localStorage
+if (!localStorage.getItem("localListArray")) {
+  localStorage.localListArray = JSON.stringify(listArray);
+  console.log(localStorage.localListArray);
+} else {
+  listArray = JSON.parse(localStorage["localListArray"]);
+  console.log(listArray);
+}
 
 // add sample tasks to the page
+// localStorage.clear();
 addSamples();
 
 // display tasks on the page
 function displayTasks() {
+  // display lists
+  document.querySelector(".projects-nav ul").innerHTML =
+    '<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="list">Chores</span></li>';
+  for (let item of listArray) {
+    const div = document.createElement("div");
+    div.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${item}</span></li>`;
+    document.querySelector(".projects-nav ul").append(div);
+  }
+
+  deleteListEvent();
+
   content.innerHTML = "";
 
   // filter tasks by date
@@ -100,6 +122,7 @@ function displayTasks() {
       displayTasks();
     })
   );
+  localStorage.userTasks = JSON.stringify(taskArray);
 }
 
 displayTasks();
@@ -115,6 +138,7 @@ addTaskBtn.addEventListener("click", (e) => {
     );
 
     taskArray.push(newTask);
+    localStorage.userTasks = JSON.stringify(taskArray);
     form.reset();
     formContainer.style.display = "none";
     // re-build page
@@ -147,6 +171,7 @@ addTaskBtn.addEventListener("click", (e) => {
     form.reset();
     formContainer.style.display = "none";
     displayTasks();
+    localStorage.userTasks = JSON.stringify(taskArray);
   }
 });
 
@@ -198,18 +223,19 @@ closeListBtn.addEventListener(
 );
 
 addListBtn.addEventListener("click", (e) => {
-  console.log(newListForm[0].value);
   if (newListForm[0].value) {
     const input = newListForm.querySelector("input");
-    const div1 = document.createElement("div");
-    div1.innerHTML = `<li><span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span></li>`;
-    document.querySelector(".projects-nav ul").append(div1);
+    // const li = document.createElement("li");
+    // li.innerHTML = `<span class="del">X</span>&nbsp;&nbsp;<span class="list">${input.value}</span>`;
+    // document.querySelector(".projects-nav ul").append(li);
+    listArray.push(newListForm[0].value);
+    localStorage.localListArray = JSON.stringify(listArray);
 
     const option = document.createElement("option");
     option.value = `${input.value}`;
     option.textContent = `${input.value}`;
     document.querySelector("#list").append(option);
-    deleteListEvent();
+    // deleteListEvent();
 
     newListForm.reset();
     newListFormContainer.style.display = "none";
@@ -225,6 +251,12 @@ function deleteListEvent() {
         (obj) =>
           obj.list !== e.target.parentElement.querySelector(".list").textContent
       );
+      listArray = listArray.filter(
+        (item) =>
+          item !== e.target.parentElement.querySelector(".list").textContent
+      );
+      localStorage.userTasks = JSON.stringify(taskArray);
+      localStorage.localListArray = JSON.stringify(listArray);
       document.querySelectorAll("#list option").forEach((elem) => {
         if (
           elem.value ===
@@ -259,3 +291,5 @@ function onResize() {
 }
 
 window.onresize = onResize;
+
+// localStorage.clear();
