@@ -8,17 +8,16 @@ body,
   box-sizing: border-box;
 }
 
-html,
 body {
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 
 .container {
   background-color: #fdeedc;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: stretch;
   font-family: "Roboto", sans-serif;
@@ -202,7 +201,7 @@ main {
 
 /* new task form */
 .form-container {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -277,7 +276,7 @@ form button:active {
 
 /* new list form */
 .new-list-form {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -316,6 +315,7 @@ form button:active {
   display: none;
   justify-content: space-between;
   flex: 1;
+  z-index: 2;
 }
 
 #forMobile p {
@@ -338,9 +338,9 @@ form button:active {
     gap: 20px;
   }
 
-  body {
+  /* body {
     background-color: #fcc37d;
-  }
+  } */
 
   nav {
     display: none;
