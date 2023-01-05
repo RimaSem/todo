@@ -51,7 +51,7 @@ export function addSamples() {
         "Water the plants",
         "In the kitchen and living room",
         "Chores",
-        "2023-01-04",
+        "2023-12-04",
         "medium"
       )
     );
@@ -60,7 +60,7 @@ export function addSamples() {
         "Watch the news",
         "if there is time",
         "Errands",
-        "2022-09-01",
+        "2024-09-01",
         "low"
       )
     );

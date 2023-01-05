@@ -21,6 +21,7 @@ const form = document.querySelector("#myForm");
 const formTitle = document.querySelector(".form-title");
 
 const nav = document.querySelector("nav");
+const main = document.querySelector("main");
 const addTaskBtn = document.querySelector(".add-btn");
 const showFormBtn = document.querySelector(".add-task");
 const closeFormBtn = document.querySelector(".close-form-btn");
@@ -48,10 +49,8 @@ let listArray = ["Errands", "Fitness", "Work", "School"];
 // save or retrieve data to/from localStorage
 if (!localStorage.getItem("localListArray")) {
   localStorage.localListArray = JSON.stringify(listArray);
-  console.log(localStorage.localListArray);
 } else {
   listArray = JSON.parse(localStorage["localListArray"]);
-  console.log(listArray);
 }
 
 // add sample tasks to the page
@@ -284,8 +283,12 @@ deleteListEvent();
 document.querySelector("#dispSidebar").addEventListener("click", (e) => {
   if (nav.style.display == "block") {
     nav.style.display = "none";
+    content.style.display = "block";
+    main.style.padding = "6vh 0.6rem";
   } else {
     nav.style.display = "block";
+    content.style.display = "none";
+    main.style.padding = "0";
   }
 });
 
@@ -298,5 +301,3 @@ function onResize() {
 }
 
 window.onresize = onResize;
-
-// localStorage.clear();

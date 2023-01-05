@@ -153,6 +153,7 @@ main {
 .content-container {
   width: 100%;
   position: relative;
+  display: block;
 }
 
 .task {
