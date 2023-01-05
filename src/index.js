@@ -158,8 +158,10 @@ addTaskBtn.addEventListener("click", (e) => {
     currentArray = [...taskArray];
     if (window.innerWidth < 650) {
       nav.style.display = "none";
+      location.reload();
+    } else {
+      displayTasks();
     }
-    displayTasks();
   } else if (e.target.innerText === "Save" && form.checkValidity()) {
     // find index of the task currently being edited
     const index = taskArray.indexOf(currentTask);

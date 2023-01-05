@@ -54,6 +54,7 @@ export default function renderStructure() {
         name="listInput"
         placeholder="List title"
         minlength="1"
+        maxlength="10"
       />
       <div class="btn-container">
         <button type="button">Add list</button
@@ -72,7 +73,7 @@ export default function renderStructure() {
         type="text"
         id="title"
         name="title"
-        maxlength="60"
+        maxlength="50"
       />
       <label for="description">Description:</label>
       <textarea

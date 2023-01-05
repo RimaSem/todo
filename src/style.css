@@ -2,7 +2,6 @@
 
 /* one more color #F1A661 */
 
-html,
 body,
 * {
   box-sizing: border-box;
@@ -143,11 +142,13 @@ ul img {
 }
 
 /* main section */
+
 main {
   background-color: #fcc37d;
   display: flex;
   flex-grow: 1;
   padding: 6vh 0.6rem;
+  width: 0;
 }
 
 .content-container {
@@ -160,7 +161,7 @@ main {
   color: #6c3a00;
   background-color: rgb(255, 251, 244);
   min-width: fit-content;
-  max-width: 800px;
+  width: clamp(100px, 100%, 800px);
   margin: auto;
   margin-top: 1vh;
   padding: 5px 15px;
@@ -177,7 +178,6 @@ main {
 
 .task-info {
   display: flex;
-  /* justify-content: space-between; */
 }
 
 .task-right {
@@ -336,12 +336,8 @@ form button:active {
 
   .task-info {
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
-
-  /* body {
-    background-color: #fcc37d;
-  } */
 
   nav {
     display: none;
